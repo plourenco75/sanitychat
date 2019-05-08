@@ -1,0 +1,21 @@
+{
+  "name": "sanitychat",
+  "version": "1.0.0",
+  "description": "Sanity Chat App",
+  "main": "src/index.js",
+  "dependencies": {
+    "express": "^4.16.4",
+    "fs": "^0.0.1-security",
+    "hbs": "^4.0.4",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "env-cmd": "^8.0.2"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "env-cmd ./config/dev.env nodemon src/index.js"
+  },
+  "author": "P Lourenco",
+  "license": "MIT"
+}
