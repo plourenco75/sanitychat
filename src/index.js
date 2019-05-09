@@ -21,17 +21,26 @@ app.use((req, res, next) => {
     next();
 });
 
-let count = 0
 
 io.on('connection', (socket) => {
     console.log('new websocket connection')
 
-    socket.emit('countUpdated', count)
+    socket.emit('message', 'Welcome to Sanity Chat!')
 
-    socket.on('increment', () => {
-        count++
-        // socket.emit('countUpdated', count)
-        io.emit('countUpdated', count)   //emits event to all connections
+    socket.on('sendMessage', (msg, callback) => {
+
+        if (msg.length === 0) {
+            return callback('Rejected: please enter text to send')
+        }
+
+        io.emit('message', msg)
+        callback('Delivered')
+    })
+
+    socket.on('sendLocation', (coords, callback) => {
+        const locationMsg = `https://google.com/maps?q=${coords.latitude},${coords.longitude}`
+        io.emit('message', locationMsg)
+        callback('Location shared!')
     })
 })
 

@@ -5,7 +5,11 @@
     </head>
     <body>
         Sanity Chat App
-        <button id="increment">+1</button>
+        <form id="message-form">
+            <input id="message-input" placeholder="Message">
+            <button>Send</button>
+        </form>
+        <button id="share-location">Share my location</button>
         <script src="/socket.io/socket.io.js"></script>
         <script src="/js/chat.js"></script>
     </body>
