@@ -26,6 +26,7 @@ io.on('connection', (socket) => {
     console.log('new websocket connection')
 
     socket.emit('message', 'Welcome to Sanity Chat!')
+    socket.broadcast.emit('message', 'A new user has joined')
 
     socket.on('sendMessage', (msg, callback) => {
 
@@ -41,6 +42,10 @@ io.on('connection', (socket) => {
         const locationMsg = `https://google.com/maps?q=${coords.latitude},${coords.longitude}`
         io.emit('locationMessage', locationMsg)
         callback('Location shared!')
+    })
+
+    socket.on('disconnect', () => {
+        io.emit('message', 'A user has left the chat')
     })
 })
 
