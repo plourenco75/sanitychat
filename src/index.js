@@ -4,6 +4,8 @@ const fs       = require('fs')
 const http     = require('http')
 const socketio = require('socket.io')
 
+const { generateMessage } = require('./utils/messages')
+
 const app = express()
 const server = http.createServer(app)
 const io = socketio(server)
@@ -25,8 +27,8 @@ app.use((req, res, next) => {
 io.on('connection', (socket) => {
     console.log('new websocket connection')
 
-    socket.emit('message', 'Welcome to Sanity Chat!')
-    socket.broadcast.emit('message', 'A new user has joined')
+    socket.emit('message', generateMessage('Welcome to Sanity Chat!'))
+    socket.broadcast.emit('message', generateMessage('A new user has joined'))
 
     socket.on('sendMessage', (msg, callback) => {
 
@@ -34,7 +36,7 @@ io.on('connection', (socket) => {
             return callback('Rejected: please enter text to send')
         }
 
-        io.emit('message', msg)
+        io.emit('message', generateMessage(msg))
         callback('Delivered')
     })
 
@@ -45,7 +47,7 @@ io.on('connection', (socket) => {
     })
 
     socket.on('disconnect', () => {
-        io.emit('message', 'A user has left the chat')
+        io.emit('message', generateMessage('A user has left the chat'))
     })
 })
 
