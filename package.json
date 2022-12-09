@@ -4,7 +4,7 @@
   "description": "Sanity Chat App",
   "main": "src/index.js",
   "dependencies": {
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "fs": "^0.0.1-security",
     "hbs": "^4.0.4",
     "socket.io": "^2.2.0"
